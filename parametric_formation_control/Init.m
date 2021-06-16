@@ -4,7 +4,6 @@ clear all
 T = 20; % running time 
 
 params.N    = 4; % number of agents
-params.n    = 2; % operational space
 params.m    = [1;1;1;1]; % masses
 params.d    = [1;1;1;1]; % frict. coeff
 
