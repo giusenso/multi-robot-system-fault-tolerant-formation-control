@@ -5,18 +5,13 @@ clc
 
 %% System Model ===========================================================
 
-N = 4;	% number of robots
+N = 2;	% number of robots
 n = 2;	% task space
-E = 4;  % number of edges
+E = 1;  % number of edges
 
 % incidence matrix
-B = [   0	-1	0	1;
-        1	0	-1	0; 
-        0	1	0  -1;
-        -1	0	1   0]
+B = [1;-1];
 
-In = sym(eye(n));
-IN = sym(eye(N));
 q = sym('q',[N*n,1]); assume(q,'real');	% robots positions
 p = sym('p',[N*n,1]); assume(p,'real');	% robots momenta
 m = sym('m',[N,1]); assume(m,'real');   % robots masses
@@ -49,7 +44,7 @@ Ha = simplify(0.5*p.'*inv(M)*p)
 %% Closed-loop System =====================================================
 
 % closed-loop incidencec matrix    
-Bcl = kron(B,In);
+Bcl = kron(B,eye(n));
 
 z = sym('z',[n*E,1]); assume(z,'real');     % edges lengths
 z_des = sym('z_des',[n*E,1]); assume(z_des,'real'); % desired edges lengths
@@ -75,7 +70,7 @@ H = Ha + Hc
 H_dot_p = gradient(H,p); % == M^-1*p
 H_dot_q = gradient(H,q); % ==Kc*(z-z_des)
 
-p_dot = [-(Da + Bcl*Dc*Bcl.'), -Bcl] * [H_dot_p; H_dot_q]
+p_dot = [-(Da + Bcl*Dc*Bcl.'), -Bcl] * [M^-1*p; Kc*(z-z_des)]
 z_dot = Bcl.' * H_dot_p
 
 state_dot = [p_dot; z_dot];
