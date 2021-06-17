@@ -12,10 +12,10 @@ params.E    = 4;                % number of edges
 params.B    = [-1 0 0 +1; 1 -1 0 0; 0 1 -1 0; 0 0 1 -1];  % incidence matrix
 params.dc	= [0;0;0;0];        % damping coeff
 params.kc	= [10;10;10;10];    % spring constant
-params.z_des= [ [-10;0;0];
+params.z_des=[  [10;0;0];
                 [0;-10;0];
-                [10;0;0];
-                [0;10;0]];    % desired distance
+                [-10;0;0];
+                [0;10;0]]; % desired distance
 
 params.gain = zeros(n*params.N,1);
 for i = 1:params.N
