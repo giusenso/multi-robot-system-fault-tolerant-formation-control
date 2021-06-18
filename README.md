@@ -5,3 +5,8 @@
 - [x]  Formation control for 4 point masses R^3
 - [ ]  Fault management
 - [ ]  What else?
+
+
+<p align="center">
+  <img src="4robots_formation_control/simulation.gif"/>
+</p>
