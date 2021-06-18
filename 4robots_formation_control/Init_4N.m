@@ -8,8 +8,11 @@ params.N    = 4;                % number of agents
 params.m    = [10;10;10;10];    % masses
 params.d    = [8;8;8;8];        % frict. coeff
 
-params.E    = 4;                % number of edges
-params.B    = [-1 0 0 +1; 1 -1 0 0; 0 1 -1 0; 0 0 1 -1];  % incidence matrix
+params.B    = [ -1 0 0 +1; 
+                1 -1 0 0;
+                0 1 -1 0;
+                0 0 1 -1];      % incidence matrix
+params.E    = size(params.B,2); % number of edges
 params.dc	= [0;0;0;0];        % damping coeff
 params.kc	= [10;10;10;10];    % spring constant
 params.z_des=[  [10;0;0];

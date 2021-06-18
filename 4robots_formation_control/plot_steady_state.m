@@ -14,20 +14,21 @@ for i = 1:N
     robot{i}.z = (out.q.Data(:,n*(i-1)+3)).';
 end
 
-%% Plot
-color = ['b.';'r.';'g.';'m.'];
-for k = 1:N
-    if k<N
-        line([robot{k}.x(s),robot{k+1}.x(s)], [robot{k}.y(s),robot{k+1}.y(s)], [robot{k}.z(s),robot{k+1}.z(s)])
-    else
-        line([robot{k}.x(s),robot{1}.x(s)], [robot{k}.y(s),robot{1}.y(s)], [robot{k}.z(s),robot{1}.z(s)])
-    end
-    hold on;
+%% Draw edges
+for edge = 1:E
+	f = find(params.B(:,edge)==-1);
+	t = find(params.B(:,edge)==1);
+	line([robot{f}.x(s),robot{t}.x(s)], [robot{f}.y(s),robot{t}.y(s)], [robot{f}.z(s),robot{t}.z(s)], 'Color', 'k')
+	hold on;
 end
+
+%% Draw robots
+color = ['b.';'r.';'r.';'r.'];  % robot colors
 for k = 1:N
-	plot3(robot{k}.x(s), robot{k}.y(s), robot{k}.z(s),color(k,:),'MarkerSize',30);
+    plot3(robot{k}.x(s), robot{k}.y(s), robot{k}.z(s), color(k,:),'MarkerSize',30);
+	hold on;
+end
     set(gca,'XLim',[-10 10],'YLim',[-10 10],'ZLim',[-10,10]);
-end
     grid on; view(-10,60);
 
 clear k i robot
