@@ -1,22 +1,23 @@
 clear all
 
 %% params
-T = 20; % running time 
+T = 30; % running time 
 
 n = 3;  % task space
 params.N    = 4;                % number of agents
 params.m    = [10;10;10;10];    % masses
-params.d    = [8;8;8;8];        % frict. coeff
+params.d    = [10;10;10;10];	% frict. coeff
 
 params.Bfull= [ -1 0 0 +1 -1 0; 
                 1 -1 0 0 0 -1;
                 0 1 -1 0 1 0;
                 0 0 1 -1 0 1];      % full incidence matrix
-params.B    = [ -1 0 0 +1 0 0; 
-                1 -1 0 0 0 0;
-                0 1 -1 0 0 0;
-                0 0 1 -1 0 0];      % incidence matrix
-params.E    = size(params.B,2);     % number of edges
+params.B = [   -1 0 0 +1 0 0;
+        1 -1 0 0 0 0;
+        0 1 -1 0 0 0;
+        0 0 1 -1 0 0];
+
+params.E    = size(params.Bfull,2);	% number of edges
 params.dc	= [0;0;0;0;0;0];        % damping coeff
 params.kc	= [10;10;10;10;10;10];	% spring constant
 d = 10;
@@ -40,10 +41,10 @@ params_bus = evalin('base',params_bus_info.busName);
 %% Initial conditions
 p0 = zeros(n*params.N, 1);
 
-q01 = [-1; 1; 0];
-q02 = [1; 1; 0];
-q03 = [1; -1; 0];
-q04 = [-1; -1; 0];
+q01 = [-2; 2; 0];
+q02 = [2; 2; 0];
+q03 = [2; -2; 0];
+q04 = [-2; -2; 0];
 q0 = [q01; q02; q03; q04];
 
 z0 = zeros(n*params.E,1);
