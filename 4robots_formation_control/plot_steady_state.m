@@ -16,9 +16,11 @@ end
 
 %% Draw edges
 for edge = 1:E
-	f = find(params.B(:,edge)==-1);
-	t = find(params.B(:,edge)==1);
-	line([robot{f}.x(s),robot{t}.x(s)], [robot{f}.y(s),robot{t}.y(s)], [robot{f}.z(s),robot{t}.z(s)], 'Color', 'k')
+	if (size(find(params.B(:,edge)==-1),1)+(size(find(params.B(:,edge)==1),1)) ~= 0)
+        f = find(params.B(:,edge)==-1);
+        t = find(params.B(:,edge)==1);
+        line([robot{f}.x(s),robot{t}.x(s)], [robot{f}.y(s),robot{t}.y(s)], [robot{f}.z(s),robot{t}.z(s)], 'Color','k');
+    end
 	hold on;
 end
 
@@ -29,7 +31,7 @@ for k = 1:N
 	hold on;
 end
     set(gca,'XLim',[-10 10],'YLim',[-10 10],'ZLim',[-10,10]);
-    grid on; view(-10,60);
+    grid on; view(0,90);
 
 clear k i robot
 

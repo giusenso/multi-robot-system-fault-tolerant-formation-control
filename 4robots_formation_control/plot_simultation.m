@@ -6,7 +6,7 @@ E = params.E;   % number of edges
 n = size(out.state.Data,2)/(N+E);	% operational space
 
 %% extract robots data
-num_samples = size(out.q.Data,1);
+s = size(out.q.Data,1);
 robot = cell(N,1);
 for k = 1:N
     robot{k}.x = (out.q.Data(:,n*(k-1)+1)).';
@@ -21,12 +21,14 @@ myVideo.Quality = 100;
 open(myVideo)
 color = ['b.';'r.';'r.';'r.'];  % robot colors
 
-for i = 1:num_samples
+for i = 1:s
     %% Draw edges
     for edge = 1:E
-        f = find(params.B(:,edge)==-1);
-        t = find(params.B(:,edge)==1);
-        line([robot{f}.x(i),robot{t}.x(i)], [robot{f}.y(i),robot{t}.y(i)], [robot{f}.z(i),robot{t}.z(i)], 'Color','k')
+        if (size(find(params.B(:,edge)==-1),1)+(size(find(params.B(:,edge)==1),1)) ~= 0)
+            f = find(params.B(:,edge)==-1);
+            t = find(params.B(:,edge)==1);
+            line([robot{f}.x(i),robot{t}.x(i)], [robot{f}.y(i),robot{t}.y(i)], [robot{f}.z(i),robot{t}.z(i)], 'Color','k');
+        end
         hold on;
     end
     
@@ -35,7 +37,7 @@ for i = 1:num_samples
         plot3(robot{k}.x(i), robot{k}.y(i), robot{k}.z(i), color(k,:),'MarkerSize',30);
         hold on;
     end
-    grid on, view(-10,60);
+    grid on, view(-10,75);
     set(gca,'XLim',[-10 10],'YLim',[-10 10],'ZLim',[-10,10]);
     pause(0.1)
     frame = getframe(gcf); %get frame
@@ -45,8 +47,7 @@ end
 
 close(myVideo)
 close all
-clear myVideo k i frame robot
-
+clear myVideo frame
 
 
 
