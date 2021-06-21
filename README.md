@@ -8,5 +8,5 @@
 
 
 <p align="center">
-  <img src="4robots_formation_control/simulation.gif"/>
+  <img src="4robots_formation_control/simulations/simulation2.gif"/>
 </p>
