@@ -1,13 +1,18 @@
 %% plot data
 close all
 
+% set colors
+leader_c = '#FF1111';
+robot_c = '#2222FF';
+faulted_c = '#8888EE';
+color = {leader_c, robot_c, robot_c, robot_c};  % robot colors
+
 B = out.B.Data;
 N = params.N;   % number of robots
 E = params.E;   % number of edges
 n = size(out.state.Data,2)/(N+E);	% operational space
 
 %% extract robots data
-s = size(out.q.Data,1);
 robot = cell(N,1);
 for k = 1:N
     robot{k}.x = (out.q.Data(:,n*(k-1)+1)).';
@@ -17,20 +22,20 @@ end
 
 %% Initialize video
 set(gcf,'units','points','position',[400,400,600,600])
-myVideo = VideoWriter('simulation','MPEG-4'); % open video file
+myVideo = VideoWriter('simulations/simulation','MPEG-4'); % open video file
 myVideo.FrameRate = 10;  % can adjust this, 5 - 10 works well for me
 myVideo.Quality = 100;
 open(myVideo)
 
 fault_occurred = 0;
-color = {'b.';'r.';'r.';'r.'};  % robot colors
+s = size(out.q.Data,1);
 for i = 1:s
     %% Draw edges
     for edge = 1:E
         if(size(find(B(:,edge,i)==1),1) ~= 0)
             f = find(B(:,edge,i)==-1);
             t = find(B(:,edge,i)==1);
-            line([robot{f}.x(i),robot{t}.x(i)], [robot{f}.y(i),robot{t}.y(i)], [robot{f}.z(i),robot{t}.z(i)], 'Color','k');
+            line([robot{f}.x(i),robot{t}.x(i)], [robot{f}.y(i),robot{t}.y(i)], [robot{f}.z(i),robot{t}.z(i)], 'Color','#111111');
         end
         hold on;
     end
@@ -39,12 +44,12 @@ for i = 1:s
     for k = 1:N
         if(sum(abs(B(k,:,i)))==0 && ~fault_occurred)
             fault_occurred = 1;
-            color{k} = 'c.';
+            color{k} = faulted_c;
         end
-        plot3(robot{k}.x(i), robot{k}.y(i), robot{k}.z(i), color{k},'MarkerSize',30);
+        plot3(robot{k}.x(i), robot{k}.y(i), robot{k}.z(i),'.','Color',color{k},'MarkerSize',35);
         hold on;
     end
-    grid on, view(-10,75);
+    grid on, view(-10,70);
     set(gca,'XLim',[-10 10],'YLim',[-10 10],'ZLim',[-10,10]);
     pause(0.1)
     frame = getframe(gcf); %get frame

@@ -6,19 +6,19 @@ T = 30; % running time
 n = 3;  % task space
 params.N    = 4;                % number of agents
 params.m    = [10;10;10;10];    % masses
-params.d    = [10;10;10;10];	% frict. coeff
+params.d    = [8;8;8;8];        % frict. coeff
 
 params.Bfull= [ -1 0 0 +1 -1 0; 
                 1 -1 0 0 0 -1;
                 0 1 -1 0 1 0;
                 0 0 1 -1 0 1];      % full incidence matrix
 params.B = [   -1 0 0 +1 0 0;
-        1 -1 0 0 0 0;
-        0 1 -1 0 0 0;
-        0 0 1 -1 0 0];
+                1 -1 0 0 0 0;
+                0 1 -1 0 0 0;
+                0 0 1 -1 0 0];      % initial incidence matrix
 
 params.E    = size(params.Bfull,2);	% number of edges
-params.dc	= [0;0;0;0;0;0];        % damping coeff
+params.dc	= [2;2;2;2;2;2];        % damping coeff
 params.kc	= [10;10;10;10;10;10];	% spring constant
 d = 10;
 params.z_des = [[d;0;0];
@@ -26,8 +26,10 @@ params.z_des = [[d;0;0];
                 [-d;0;0];
                 [0;d;0];
                 [d;-d;0];
-                [-d;-d;0]];     % desired edges length
-
+                [-d;-d;0]];         % desired edges length
+            
+params.gamma = -1;
+params.fault_occurred = 0;
 params.gain = zeros(n*params.N,1);
 for i = 1:params.N
     params.gain(n*i-n+1:n*i) = ones(n,1)*(1/params.m(i));
@@ -54,7 +56,7 @@ for i = 1:params.E
     z0(i*n-n+1:i*n) = q0(to*n-n+1:to*n)-q0(from*n-n+1:from*n);
 end
 
-initialCondition = [p0; z0; q0];
+initialCondition = [p0; z0; q0; 0];
 
 
 

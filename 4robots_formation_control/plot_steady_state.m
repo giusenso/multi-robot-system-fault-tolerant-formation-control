@@ -1,12 +1,18 @@
 %% plot data
 close all
 
+% set colors
+leader_c = '#FF1111';
+robot_c = '#2222FF';
+faulted_c = '#8888EE';
+color = {leader_c, robot_c, robot_c, robot_c};  % robot colors
+
+B = out.B.Data;
 N = params.N;   % number of robots
 E = params.E;   % number of edges
 n = size(out.state.Data,2)/(N+E);	% operational space
 
 %% Extract data
-s = size(out.q.Data,1);
 robot = cell(N,1);
 for i = 1:N
     robot{i}.x = (out.q.Data(:,n*(i-1)+1)).';
@@ -15,23 +21,36 @@ for i = 1:N
 end
 
 %% Draw edges
+fault_occurred = 0;
+s = size(out.q.Data,1);
 for edge = 1:E
-	if (size(find(params.B(:,edge)==-1),1)+(size(find(params.B(:,edge)==1),1)) ~= 0)
-        f = find(params.B(:,edge)==-1);
-        t = find(params.B(:,edge)==1);
-        line([robot{f}.x(s),robot{t}.x(s)], [robot{f}.y(s),robot{t}.y(s)], [robot{f}.z(s),robot{t}.z(s)], 'Color','k');
+	if(size(find(B(:,edge,s)==1),1) ~= 0)
+        f = find(B(:,edge,s)==-1);
+        t = find(B(:,edge,s)==1);
+        line([robot{f}.x(s),robot{t}.x(s)], [robot{f}.y(s),robot{t}.y(s)], [robot{f}.z(s),robot{t}.z(s)], 'Color','#111111');
     end
 	hold on;
 end
-
+    
 %% Draw robots
-color = ['b.';'r.';'r.';'r.'];  % robot colors
 for k = 1:N
-    plot3(robot{k}.x(s), robot{k}.y(s), robot{k}.z(s), color(k,:),'MarkerSize',30);
+	if(sum(abs(B(k,:,s)))==0 && ~fault_occurred)
+        fault_occurred = 1;
+        color{k} = faulted_c;
+    end
+	plot3(robot{k}.x(s), robot{k}.y(s), robot{k}.z(s),'.','Color',color{k},'MarkerSize',35);
 	hold on;
 end
-    set(gca,'XLim',[-10 10],'YLim',[-10 10],'ZLim',[-10,10]);
-    grid on; view(0,90);
+set(gca,'XLim',[-10 10],'YLim',[-10 10],'ZLim',[-10,10]);
+grid on; view(0,90);
+
+
+%% plot dissipated energy
+figure();
+plot(out.Diss, 'linewidth', 1.5), grid on;
+title('Dissipated energy');
+
+
 
 clear k i robot
 
