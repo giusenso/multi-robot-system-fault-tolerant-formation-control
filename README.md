@@ -9,7 +9,7 @@
 
 
 ### NoTank (left) vs Tanks (right) usage
-<img src="4robots_formation_control/simulations/sim2/sim2_notanks.gif" width=420 align="left"/>
+<img src="4robots_formation_control/simulations/sim2/sim2_notanks.gif" width=400 align="left"/>
 
-<img src="4robots_formation_control/simulations/sim2/sim2_tanks.gif" width=420 align="right"/>
+<img src="4robots_formation_control/simulations/sim2/sim2_tanks.gif" width=400 align="right"/>
 
