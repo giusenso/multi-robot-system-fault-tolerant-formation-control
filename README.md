@@ -8,6 +8,8 @@
 - [ ]  What else?
 
 
-<p align="center">
-  <img src="4robots_formation_control/simulations/simulation3.gif"/>
-</p>
+### NoTank (left) vs Tanks (right) usage
+<img src="4robots_formation_control/simulations/sim2/sim2_notanks.gif" width=440 align="left"/>
+
+<img src="4robots_formation_control/simulations/sim2/sim2_tanks.gif" width=440 align="right"/>
+
