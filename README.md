@@ -4,7 +4,7 @@
 - [x]  Paramentric symbolic formation control for N point masses R^n
 - [x]  Formation control for 4 point masses R^3
 - [x]  Fault management
-- [ ]  Tanks
+- [x]  Tanks
 - [ ]  What else?
 
 
