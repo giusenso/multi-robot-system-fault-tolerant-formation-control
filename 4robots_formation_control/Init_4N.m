@@ -27,9 +27,11 @@ params.z_des = [[d;0;0];
                 [0;d;0];
                 [d;-d;0];
                 [-d;-d;0]];         % desired edges length
-            
-params.gamma = -1;
+
 params.fault_occurred = 0;
+params.joined_edge = params.E+1;            % edge joined after fault
+params.gamma = [-.1;-.1;-.1;-.1;-.1;-.1];	% rate of exchange of energy
+
 params.gain = zeros(n*params.N,1);
 for i = 1:params.N
     params.gain(n*i-n+1:n*i) = ones(n,1)*(1/params.m(i));
@@ -56,7 +58,9 @@ for i = 1:params.E
     z0(i*n-n+1:i*n) = q0(to*n-n+1:to*n)-q0(from*n-n+1:from*n);
 end
 
-initialCondition = [p0; z0; q0; 0];
+t0 = 100*ones(params.N,1);    % tanks initial condition
+
+initialCondition = [p0; z0; t0; q0];
 
 
 
