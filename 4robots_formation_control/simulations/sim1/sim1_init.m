@@ -1,5 +1,3 @@
-clear all
-
 %% params
 T = 30; % running time 
 fault_time = 15;
@@ -32,7 +30,7 @@ params.z_des = [[d;0;0];
 
 params.fault_occurred = 0;
 params.joined_edge = params.E+1;  	% edge joined after fault
-params.gamma = 10^(-5)*ones(6,1);   % rate of exchange of energy
+params.gamma = 10^(-4)*ones(6,1);   % rate of exchange of energy
 
 params.gain = zeros(n*params.N,1);
 for i = 1:params.N

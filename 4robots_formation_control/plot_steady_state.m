@@ -47,8 +47,39 @@ grid on; view(0,90);
 
 %% plot dissipated energy
 figure();
-plot(out.Diss, 'linewidth', 1.5), grid on;
-title('Dissipated energy');
+for i = 1:N
+    t_i = timeseries(out.t.Data(:,i), out.t.Time)
+    if (i==3 || i==4)
+        plot(t_i, '--', 'linewidth', 1.5), hold on, grid on;
+    else
+        plot(t_i, 'linewidth', 1.5), hold on, grid on;
+    end
+end
+yaxis([96;101]);
+legend('t_1', 't_2', 't_3', 't_4');
+title('Energy Tanks');
+
+%% plot edge distances
+figure();
+for i = 1:E
+    zzz = zeros(size(out.state.Time));
+    for t = 1:size(out.state.Time, 1)
+        if (sum(abs(B(:,i,t)))~=0)
+            zzz(t) = norm(out.state.Data(t, N*n+n*(i-1)+1:N*n+n*i));
+            time(t) = t;
+        end
+    end
+    norm_z_i =  timeseries(zzz, time);
+    
+    if (i==2 || i==4)
+        plot(norm_z_i, '--','linewidth', 1.5), hold on, grid on;
+    else
+        plot(norm_z_i, 'linewidth', 1.5), hold on, grid on;
+    end
+end
+legend('z_1', 'z_2', 'z_3', 'z_4', 'z_5', 'z_6');
+title('Edge distances');
+
 
 
 
