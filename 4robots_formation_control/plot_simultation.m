@@ -69,15 +69,14 @@ for i = 1:s
             exit_flag = exit_flag + 1;  % robot is no moving anymore
         end
     end
-
-    grid on, view(-10,60);
-    set(gca,'XLim',[-10 10],'YLim',[-10 10],'ZLim',[-10,10]);
+      
+    grid on, view(-20,60);
+    set(gca,'XLim',[-40 80],'YLim',[-40 80],'ZLim',[-20,20]);
     pause(0.1)
     frame = getframe(gcf); %get frame
     writeVideo(myVideo, frame);
     clf;
 
-    
 end
 
 close(myVideo)

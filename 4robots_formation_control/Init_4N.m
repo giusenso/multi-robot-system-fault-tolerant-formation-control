@@ -1,7 +1,7 @@
 clear all
 
 %% params
-T = 30; % running time 
+T = 140; % running time 
 fault_time = 15;
 faulted_robot = 4;
 
@@ -20,9 +20,9 @@ params.B = [   -1 0 0 +1 0 0;
                 0 0 1 -1 0 0];      % initial incidence matrix
 
 params.E    = size(params.Bfull,2);	% number of edges
-params.dc	= [2;2;2;2;2;2];        % damping coeff
-params.kc	= [10;10;10;10;10;10];	% spring constant
-d = 10;
+params.dc	= [4;4;4;4;4;4];        % damping coeff
+params.kc	= [12;12;12;12;12;12];	% spring constant
+d = 20;
 params.z_des = [[d;0;0];
                 [0;-d;0];
                 [-d;0;0];
@@ -30,6 +30,8 @@ params.z_des = [[d;0;0];
                 [d;-d;0];
                 [-d;-d;0]];         % desired edges length
 
+params.tank_size = 100;
+params.tank_thresh = 0.5;
 params.fault_occurred = 0;
 params.joined_edge = params.E+1;  	% edge joined after fault
 params.gamma = 10^(-5)*ones(6,1);   % rate of exchange of energy
@@ -60,7 +62,7 @@ for i = 1:params.E
     z0(i*n-n+1:i*n) = q0(to*n-n+1:to*n)-q0(from*n-n+1:from*n);
 end
 
-t0 = 100*ones(params.N,1);    % tanks initial condition
+t0 = params.tank_size*ones(params.N,1);    % tanks initial condition
 
 initialCondition = [p0; z0; q0; t0];
 
