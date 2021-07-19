@@ -1,4 +1,4 @@
-# Formation control in the port-Hamiltonian framework
+# Fault-tolerant formation control using energy tanks
 
 - [x]  Formation control for 2 point masses on a R^2
 - [x]  Paramentric symbolic formation control for N point masses R^n
@@ -9,10 +9,13 @@
 - [ ]  Improve potential function V(z)
 - [ ]  Simulations
 - [ ]  Report
+ 
+  
+<img src="4robots_formation_control/simulations/simulink_scheme.PNG"/>
 
+### No Energy Tanks
+<img src="4robots_formation_control/simulations/sim2/sim2_notanks.gif" width=600 />
 
-### NoTank (left) vs Tanks (right) usage
-<img src="4robots_formation_control/simulations/sim2/sim2_notanks.gif" width=400 align="left"/>
-
-<img src="4robots_formation_control/simulations/sim2/sim2_tanks.gif" width=400 align="right"/>
+### with Energy Tanks
+<img src="4robots_formation_control/simulations/sim2/sim2_tanks.gif" width=600 />
 
