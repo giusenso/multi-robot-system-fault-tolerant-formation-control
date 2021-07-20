@@ -1,8 +1,8 @@
 clear all
 
 %% params
-T = 140; % running time 
-fault_time = 15;
+T = 100; % running time 
+fault_time = 30;
 faulted_robot = 4;
 
 n = 3;  % task space
@@ -20,9 +20,9 @@ params.B = [   -1 0 0 +1 0 0;
                 0 0 1 -1 0 0];      % initial incidence matrix
 
 params.E    = size(params.Bfull,2);	% number of edges
-params.dc	= [4;4;4;4;4;4];        % damping coeff
-params.kc	= [12;12;12;12;12;12];	% spring constant
-d = 20;
+params.dc	= [10;10;10;10;10;10];	% damping coeff
+params.kc	= [14;14;14;14;14;14];	% spring constant
+d = 30;
 params.z_des = [[d;0;0];
                 [0;-d;0];
                 [-d;0;0];

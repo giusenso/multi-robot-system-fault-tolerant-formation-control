@@ -31,10 +31,11 @@ fault_occurred = 0;
 s = size(out.q.Data,1);
 
 %% check steady state time instant
+
 for i = 1:s
     exit_flag = 0;
     for k = 1:N
-        if( i>100 && norm([robot{k}.x(i)-robot{k}.x(i-2); robot{k}.y(i)-robot{k}.y(i-2); robot{k}.z(i)-robot{k}.z(i-2)]) < 0.01 )
+        if( i>100 && norm([robot{k}.x(i)-robot{k}.x(i-2); robot{k}.y(i)-robot{k}.y(i-2); robot{k}.z(i)-robot{k}.z(i-2)]) < 0.001 )
             exit_flag = exit_flag + 1;  % robot is no moving anymore
         end
     end
@@ -43,6 +44,8 @@ for i = 1:s
         break;
     end
 end
+
+
 
 for i = 1:s
     %% Draw edges
@@ -54,6 +57,9 @@ for i = 1:s
         end
         hold on;
     end
+    
+    %% Draw trajectory
+    plot3(out.y1.Data(:,1),out.y1.Data(:,2),out.y1.Data(:,3))
     
     %% Draw robots
     for k = 1:N
@@ -70,8 +76,8 @@ for i = 1:s
         end
     end
       
-    grid on, view(-20,60);
-    set(gca,'XLim',[-40 80],'YLim',[-40 80],'ZLim',[-20,20]);
+    grid on, view(-10,60);
+    set(gca,'XLim',[-180 180],'YLim',[-180 180],'ZLim',[0,100]);
     pause(0.1)
     frame = getframe(gcf); %get frame
     writeVideo(myVideo, frame);
