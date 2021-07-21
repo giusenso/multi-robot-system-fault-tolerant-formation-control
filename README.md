@@ -6,7 +6,7 @@
 - [x]  Fault management (split and join)
 - [x]  Energy Tanks
 - [x]  Trajectory tracking
-- [ ]  Improve potential function V(z)
+- [x]  Improve potential function V(z)
 - [ ]  Simulations
 - [ ]  Report
  
