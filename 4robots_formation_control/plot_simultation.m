@@ -1,16 +1,20 @@
 %% plot data
-close all
-
-% set colors
-leader_c = '#FF1111';
-robot_c = '#2222FF';
-faulted_c = '#8888EE';
-color = {leader_c, robot_c, robot_c, robot_c};  % robot colors
 
 B = out.B.Data;
 N = params.N;   % number of robots
 E = params.E;   % number of edges
 n = size(out.state.Data,2)/(N+E);	% operational space
+
+%% set colors
+leader_c = '#EE1111';
+follower_c = '#2222FF';
+faulted_c = '#9999FF';
+trajectory_c = '#006600';
+color = cell(1,N);
+color{1} = leader_c;
+for i = 2:N
+    color{i} = follower_c;
+end
 
 %% extract robots data
 robot = cell(N,1);
@@ -21,7 +25,7 @@ for k = 1:N
 end
 
 %% Initialize video
-set(gcf,'units','points','position',[400,400,600,600])
+set(gcf,'units','points','position',[400,10,600,600])  
 myVideo = VideoWriter('simulations/simulation','MPEG-4'); % open video file
 myVideo.FrameRate = 10;  % can adjust this, 5 - 10 works well for me
 myVideo.Quality = 100;
@@ -31,7 +35,6 @@ fault_occurred = 0;
 s = size(out.q.Data,1);
 
 %% check steady state time instant
-
 for i = 1:s
     exit_flag = 0;
     for k = 1:N
@@ -45,8 +48,6 @@ for i = 1:s
     end
 end
 
-
-
 for i = 1:s
     %% Draw edges
     for edge = 1:E
@@ -59,7 +60,8 @@ for i = 1:s
     end
     
     %% Draw trajectory
-    plot3(out.y1.Data(:,1),out.y1.Data(:,2),out.y1.Data(:,3))
+    plot3(out.y1.Data(:,1),out.y1.Data(:,2),out.y1.Data(:,3), 'Color',trajectory_c);
+    plot3(out.y1.Data(i,1),out.y1.Data(i,2),out.y1.Data(i,3), '.','Color',trajectory_c,'MarkerSize',20);
     
     %% Draw robots
     for k = 1:N
@@ -67,7 +69,7 @@ for i = 1:s
             fault_occurred = 1;
             color{k} = faulted_c;
         end
-        plot3(robot{k}.x(i), robot{k}.y(i), robot{k}.z(i),'.','Color',color{k},'MarkerSize',35);
+        plot3(robot{k}.x(i), robot{k}.y(i), robot{k}.z(i),'.','Color',color{k},'MarkerSize',30);
         hold on;
         
         % check if robot at steady state
@@ -76,8 +78,8 @@ for i = 1:s
         end
     end
       
-    grid on, view(-10,60);
-    set(gca,'XLim',[-180 180],'YLim',[-180 180],'ZLim',[0,100]);
+    grid on, view(-10,70);
+    set(gca,'XLim',[-160 80],'YLim',[-40 180],'ZLim',[0,80]);
     pause(0.1)
     frame = getframe(gcf); %get frame
     writeVideo(myVideo, frame);

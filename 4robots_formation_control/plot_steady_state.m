@@ -1,16 +1,21 @@
 %% plot data
 close all
 
-% set colors
-leader_c = '#FF1111';
-robot_c = '#2222FF';
-faulted_c = '#8888EE';
-color = {leader_c, robot_c, robot_c, robot_c};  % robot colors
-
 B = out.B.Data;
 N = params.N;   % number of robots
 E = params.E;   % number of edges
 n = size(out.state.Data,2)/(N+E);	% operational space
+
+%% set colors
+leader_c = '#EE1111';
+follower_c = '#2222FF';
+faulted_c = '#9999FF';
+trajectory_c = '#006600';
+color = cell(1,N);
+color{1} = leader_c;
+for i = 2:N
+    color{i} = follower_c;
+end
 
 %% Extract data
 robot = cell(N,1);
@@ -38,53 +43,25 @@ for k = 1:N
         fault_occurred = 1;
         color{k} = faulted_c;
     end
-	plot3(robot{k}.x(s), robot{k}.y(s), robot{k}.z(s),'.','Color',color{k},'MarkerSize',35);
+	plot3(robot{k}.x(s), robot{k}.y(s), robot{k}.z(s),'.','Color',color{k},'MarkerSize',30);
 	hold on;
 end
 %set(gca,'XLim',[-10 10],'YLim',[-10 10],'ZLim',[-10,10]);
 grid on; view(0,90);
 
-
-%% plot dissipated energy
-figure();
+%% plot tanks
+figure('Renderer', 'painters', 'Position', [500 500 1092 800])
 for i = 1:N
     t_i = timeseries(out.t.Data(:,i), out.t.Time);
     if (i==3 || i==4)
-        plot(t_i, '--', 'linewidth', 1.5), hold on, grid on;
+        plot(t_i, '--', 'linewidth', 2), hold on, grid on;
     else
-        plot(t_i, 'linewidth', 1.5), hold on, grid on;
+        plot(t_i, 'linewidth', 2), hold on, grid on;
     end
 end
 legend('t_1', 't_2', 't_3', 't_4');
 title('Energy Tanks');
 
-%% plot edges
-%{
-figure();
-norm_z = cell(E,1);
-for i = 1:E
-    zzz = zeros(size(out.state.Time));
-    for t = 1:size(out.state.Time, 1)
-        if (sum(abs(B(:,i,t)))~=0)
-            zzz(t) = norm(out.state.Data(t, N*n+n*(i-1)+1:N*n+n*i));
-            time(t) = t;
-        end
-    end
-    norm_z{i} =  timeseries(zzz, time);
-    
-    if (i==2 || i==4)
-        plot(norm_z{i}, '--','linewidth', 1.5); hold on; grid on;
-    else
-        plot(norm_z{i}, 'linewidth', 1.5); hold on; grid on;
-    end
-end
-legend('z_1', 'z_2', 'z_3', 'z_4', 'z_5', 'z_6');
-title('Edge distances');
-%}
-
-
 
 clear k i robot
-
-
 %
