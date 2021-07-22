@@ -11,11 +11,11 @@
 - [ ]  Report
  
   
-<img src="4robots_formation_control/simulations/simulink_scheme.PNG"/>
+<img src="formation_control/simulations/sim6/sim6.gif"/>
 
 ### No Energy Tanks
-<img src="4robots_formation_control/simulations/sim2/sim2_notanks.gif" width=600 />
+<img src="formation_control/simulations/sim2/sim2_notanks.gif" width=600 />
 
 ### with Energy Tanks
-<img src="4robots_formation_control/simulations/sim2/sim2_tanks.gif" width=600 />
+<img src="control/simulations/sim2/sim2_tanks.gif" width=600 />
 
