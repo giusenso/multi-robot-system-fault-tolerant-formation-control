@@ -1,14 +1,14 @@
 clear all
 close all
 
-T = 120; % running time
+T = 60; % running time
 params.faulted_robot = 4;
 
 %% Robots
-n = 3;                          % task space
-params.N    = 5;                % number of agents
-params.m    = [10;10;10;10;10];	% masses
-params.d    = [6;6;6;6;6];      % frict. coeff
+n = 3;                              % task space
+params.N = 5;                       % number of agents
+params.m = 1*ones(params.N,1);     % masses
+params.d = 1*ones(params.N,1);     % frict. coeff
 
 %% Edges
 % complete incidence matrix
@@ -27,11 +27,11 @@ params.B =    [ -1	0	0	0	1	-1	0	0	1   0;
 
 params.E = size(params.Bfull,2);	% number of edges
 E_max = params.N*(params.N-1)/2;
-%if(params.E < E_max)
-%    fprintf('ERROR: Incedence matrix is not complete. Graph must have %d edges!',E_max);
-%end
-params.dc	= 10*ones(params.E,1);	% damping coeff
-params.kc	= 10*ones(params.E,1);	% spring constant
+if(params.E < E_max)
+    fprintf('ERROR: Incedence matrix is not complete. Graph must have %d edges!',E_max);
+end
+params.dc = 5*ones(params.E,1);	% damping coeff
+params.kc = 5*ones(params.E,1);	% spring constant
 
 %% Desired edges length
 d = 20;

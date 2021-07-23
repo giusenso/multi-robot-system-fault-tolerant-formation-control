@@ -27,7 +27,7 @@ end
 %% Initialize video
 set(gcf,'units','points','position',[400,10,800,800]);
 myVideo = VideoWriter('simulations/simulation','MPEG-4'); % open video file
-myVideo.FrameRate = 30;
+myVideo.FrameRate = 20;
 myVideo.Quality = 100;
 open(myVideo);
 
@@ -60,8 +60,8 @@ for i = 1:s
     end
     
     %% Draw trajectory
-    plot3(out.y1.Data(:,1),out.y1.Data(:,2),out.y1.Data(:,3), 'Color',trajectory_c,'linewidth',1.2);
-    plot3(out.y1.Data(i,1),out.y1.Data(i,2),out.y1.Data(i,3), '.','Color',trajectory_c,'MarkerSize',25);
+    plot3(out.ref.Data(:,1),out.ref.Data(:,2),out.ref.Data(:,3), 'Color',trajectory_c,'linewidth',1.2);
+    plot3(out.ref.Data(i,1),out.ref.Data(i,2),out.ref.Data(i,3), '.','Color',trajectory_c,'MarkerSize',22);
     
     %% Draw robots
     plot3(robot{1}.x(1:i), robot{1}.y(1:i), robot{1}.z(1:i), 'Color', color{1},'linewidth',1.2);
@@ -80,8 +80,8 @@ for i = 1:s
     end
     
     grid on, view(-10,40);
-    set(gca,'XLim',[-160 80],'YLim',[-60 180],'ZLim',[0,80]);
-    %set(gca,'XLim',[-30 30],'YLim',[-40 20],'ZLim',[0,80]); grid on;
+    set(gca,'XLim',[-120 120],'YLim',[-60 180],'ZLim',[0,80]);
+    %set(gca,'XLim',[-30 30],'YLim',[-40 20],'ZLim',[0,80]); view(0,90);grid on;
     %pause(0.1);
     frame = getframe(gcf); % get frame
     writeVideo(myVideo, frame);
