@@ -50,6 +50,7 @@ end
 grid on; view(0,90);
 
 %% plot tanks
+%{
 figure('Renderer', 'painters', 'Position', [500 500 1092 800])
 for i = 1:N
     t_i = timeseries(out.t.Data(:,i), out.t.Time);
@@ -61,7 +62,7 @@ for i = 1:N
 end
 legend('t_1', 't_2', 't_3', 't_4', 't_5');
 title('Energy Tanks');
-
+%}
 
 clear k i robot
 %

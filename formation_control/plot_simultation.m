@@ -1,11 +1,11 @@
-%% plot data
+%% Plot data
 
 B = out.B.Data;
 N = params.N;   % number of robots
 E = params.E;   % number of edges
 n = size(out.state.Data,2)/(N+E);	% operational space
 
-%% set colors
+%% Set colors
 leader_c = '#EE1111';
 follower_c = '#2222FF';
 faulted_c = '#9999FF';
@@ -16,7 +16,7 @@ for i = 2:N
     color{i} = follower_c;
 end
 
-%% extract robots data
+%% Extract robots data
 robot = cell(N,1);
 for k = 1:N
     robot{k}.x = (out.q.Data(:,n*(k-1)+1)).';
@@ -25,21 +25,21 @@ for k = 1:N
 end
 
 %% Initialize video
-set(gcf,'units','points','position',[400,10,600,600])
+set(gcf,'units','points','position',[400,10,800,800]);
 myVideo = VideoWriter('simulations/simulation','MPEG-4'); % open video file
-myVideo.FrameRate = 10;  % can adjust this, 5 - 10 works well for me
+myVideo.FrameRate = 30;
 myVideo.Quality = 100;
-open(myVideo)
+open(myVideo);
 
 fault_occurred = 0;
 s = size(out.q.Data,1);
 
-%% check steady state time instant
+%% Check steady state time instant
 for i = 1:s
     exit_flag = 0;
     for k = 1:N
         if( i>s*0.9 && norm([robot{k}.x(i)-robot{k}.x(i-2); robot{k}.y(i)-robot{k}.y(i-2); robot{k}.z(i)-robot{k}.z(i-2)]) < 0.001 )
-            exit_flag = exit_flag + 1;  % robot is no moving anymore
+            exit_flag = exit_flag + 1; % robot is not moving anymore
         end
     end
     if(exit_flag==N)
@@ -70,7 +70,7 @@ for i = 1:s
             fault_occurred = 1;
             color{k} = faulted_c;
         end
-        plot3(robot{k}.x(i), robot{k}.y(i), robot{k}.z(i),'.','Color',color{k},'MarkerSize',35);
+        plot3(robot{k}.x(i), robot{k}.y(i), robot{k}.z(i),'.','Color',color{k},'MarkerSize',30);
         hold on;
         
         % check if robot at steady state
@@ -81,8 +81,9 @@ for i = 1:s
     
     grid on, view(-10,40);
     set(gca,'XLim',[-160 80],'YLim',[-60 180],'ZLim',[0,80]);
-    pause(0.1)
-    frame = getframe(gcf); %get frame
+    %set(gca,'XLim',[-30 30],'YLim',[-40 20],'ZLim',[0,80]); grid on;
+    %pause(0.1);
+    frame = getframe(gcf); % get frame
     writeVideo(myVideo, frame);
     clf;
     
