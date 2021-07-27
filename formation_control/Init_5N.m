@@ -1,7 +1,7 @@
 clear all
 close all
 
-T = 60; % running time
+T = 70; % running time
 params.faulted_robot = 4;
 
 %% Robots
@@ -42,10 +42,14 @@ for i = 1:params.E
     if(i<=params.N)
         params.z_des(i*n-n+1:i*n) = ...
             [d*cos(alpha-(i-1)*beta); d*sin(alpha-(i-1)*beta); 0];
-    else
+    elseif(i>=params.N)
         k = i-params.N;
+        h = k+1;
+        if(h>params.N)
+            h = 1;
+        end
         params.z_des(i*n-n+1:i*n) = ...
-            params.z_des(k*n-n+1:k*n) + params.z_des((k+1)*n-n+1:(k+1)*n);
+            params.z_des(k*n-n+1:k*n) + params.z_des(h*n-n+1:h*n);
     end
 end
 
