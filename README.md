@@ -27,7 +27,7 @@ The overall multi-robot system with energy tanks has been implemented in *Matlab
 <br/>
 
 ## Simulations
-Simulation has been performed over a 5-robots formation aiming to achieve a pentagon formation.
+Simulation has been performed over a 5-robots system aiming to achieve a pentagon formation.
 <p align="center">
 <img src="figures/graph.PNG" align="center" width="700"/>
 </p>
