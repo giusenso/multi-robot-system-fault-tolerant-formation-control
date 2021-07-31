@@ -6,7 +6,7 @@ In general, systems are subject to failures and, in the framework of multi-agent
 <ol>
 <li>Satisfactory regulation/tracking</li>
 <li>Reconfiguration through split and join</li>
-<li>Energy correctly drained from tanks</li>
+<li>Energy properly drained from tanks</li>
 <li>Passivity of the overall system</li>
 </ol><br/>
 
@@ -14,10 +14,10 @@ In general, systems are subject to failures and, in the framework of multi-agent
 ## Project overview
 In this project a **follower-leader formation** has been considered. Leader apply a desired control input as the solution of a certain control task (regulation/tracking), while followers are linked to it by means of elastic couplings. The complete graph is stored in terms of an incidence matrix havin N (number of robots) rows and E (number of edges) columns. Further details can be found in the reference papers as well as in the source code itself.
 <p align="center">
-<img src="figures/graph_fl.PNG" align="center" height="360"/>
+<img src="figures/graph_fl.PNG" align="center" width="360"/>
 </p>
 <p align="center">
-<img src="figures/complete_ncidence_matrix.PNG" align="center" height="180"/>
+<img src="figures/complete_ncidence_matrix.PNG" align="center" width="640"/>
 </p>
 
 The overall multi-robot system with energy tanks has been implemented in *Matlab R2021a* and *Simulink*. The *pose signal generator* in the bottom left of the Simulink scheme aims to generate the reference signal (as a [x y z theta] vector) for the follower. It follow the trajectory using a proportional control law, while the faulted robot try an emergency landing with a PD law. The fault instant is determined by a step signal, while the *params* block contains all the relevant constant parameters of the multi-robot system. The central block, *ClosedLoopSystem*, contains all the closed-loop dynamics, as well as the Hamiltonian formulation and the fault-handling procedure (split and passive join).
@@ -29,17 +29,17 @@ The overall multi-robot system with energy tanks has been implemented in *Matlab
 ## Simulations
 Simulation has been performed over a 5-robots formation aiming to achieve a pentagon formation.
 <p align="center">
-<img src="figures/graph.PNG" align="center" height="360"/>
+<img src="figures/graph.PNG" align="center" width="700"/>
 </p>
 Two main simuliations of interest will be reported. In both cases all robots are assumed to be equal (same dynamic parameters). The formation starts in static conditions. A settling time is scheduled after the fault event to facilitate the reconfiguration of the formation (it is not strictly necessary)<br/>
-<p align="center">
+<p align="center"><br/>
 <img src="figures/dynamic_params.PNG" align="center" height="160"/>
 </p>
 <br/>
 
 ### Set-point regulation
 - Formation: pentagion with external edges of length 20
-- Setpoint: [0;0;0;pi/2]
+- Setpoint: [0; 0; 0; pi/2]
 - Fault: 4-th robot at t=10s
 - Settling time: 1s
 - Controller gain: Kp=5
@@ -69,6 +69,3 @@ Two main simuliations of interest will be reported. In both cases all robots are
 ## References
 - Antonio  Franchi  et  al.  “Bilateral Teleoperation of Groups of Mobile Robots With Time-Varying Topology”. In:IEEE Transactions on Robotics28.5 (2012), pp. 1019–1033.DOI:10.1109/TRO.2012.2196304
 - Vos, Ewoud et al. “Formation control in the port-Hamiltonian framework” (2015)
-
-
-
