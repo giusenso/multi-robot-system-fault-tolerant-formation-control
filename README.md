@@ -12,7 +12,7 @@ In general, systems are subject to failures and, in the framework of multi-agent
 
 
 ## Project overview
-In this project a **follower-leader formation** has been considered. Leader apply a desired control input as the solution of a certain control task (regulation/tracking), while followers are linked to it by means of elastic couplings. The complete graph is stored in terms of an incidence matrix havin N (number of robots) rows and E (number of edges) columns. Further details can be found in the reference papers as well as in the source code itself.
+In this project a **follower-leader formation** has been considered. Leader apply a desired control input as the solution of a certain control task (regulation/tracking), while followers are linked to it by means of elastic couplings. The complete graph is stored in terms of an incidence matrix having N (number of robots) rows and E (number of edges) columns. Further details can be found in the reference papers as well as in the source code itself.
 <p align="center">
 <img src="figures/graph_fl.PNG" align="center" width="360"/>
 </p>
