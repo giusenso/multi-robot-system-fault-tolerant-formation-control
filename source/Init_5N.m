@@ -19,6 +19,14 @@ params.Bfull= [ -1	0	0	0	1	-1  0   0   1   0;
                 0   0   0   1   -1	0   0   1   0   -1];
 
 % initial incidence matrix
+params.Binit = [ -1	0	0	0	1	-1	0	0	1   0; 
+                1	-1	0	0   0   0   0   0   0   0;
+                0	1   -1  0   0   1   0   0   0   0;
+                0   0   1   -1  0   0   0   0   -1  0;
+                0   0   0   1   -1	0   0   0   0   0];
+
+            
+% initial incidence matrix
 params.B =    [ -1	0	0	0	1	-1	0	0	1   0; 
                 1	-1	0	0   0   0   0   0   0   0;
                 0	1   -1  0   0   1   0   0   0   0;
@@ -54,7 +62,7 @@ for i = 1:params.E
 end
 
 %% Tanks
-params.tank_size = 100;
+params.tank_size = 10;
 params.tank_thresh = 0.25;   
 params.tank_max = params.tank_size*(1+params.tank_thresh);
 params.tank_min = params.tank_size*(1-params.tank_thresh);
