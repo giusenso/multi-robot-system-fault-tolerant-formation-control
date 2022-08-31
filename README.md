@@ -31,14 +31,14 @@ Simulation has been performed over a 5-robots system aiming to achieve a pentago
 <p align="center">
 <img src="figures/graph.PNG" align="center" width="700"/>
 </p>
-Two main simuliations of interest will be reported. In both cases all robots are assumed to be equal (same dynamic parameters). The formation starts in static conditions. A settling time is scheduled after the fault event to facilitate the reconfiguration of the formation (it is not strictly necessary)<br/>
+Two main simuliations of interest will be reported. In both cases all robots are assumed to be equal (same dynamic parameters). The formation starts in static conditions. A settling time is scheduled after the fault event to facilitate the reconfiguration of the formation (it is not strictly necessary).<br/>
 <p align="center"><br/>
 <img src="figures/dynamic_params.PNG" align="center" height="160"/>
 </p>
 <br/>
 
 ### Set-point regulation
-- Formation: pentagion with external edges of length 20
+- Formation: pentagon with external edges of length 20
 - Setpoint: [0; 0; 0; pi/2]
 - Fault: 4-th robot at t=10s
 - Settling time: 1s
@@ -51,7 +51,7 @@ Two main simuliations of interest will be reported. In both cases all robots are
 </p>
 
 ### Trajectory tracking
-- Formation: pentagion with external edges of length 20
+- Formation: pentagon with external edges of length 20
 - Trajectory: elicoidal
 - Fault: 4-th robot at t=25s
 - Settling time: 5s
